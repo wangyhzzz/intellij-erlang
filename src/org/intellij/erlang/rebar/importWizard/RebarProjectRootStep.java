@@ -125,17 +125,18 @@ public class RebarProjectRootStep extends ProjectImportWizardStep {
   private static void fetchDependencies(@NotNull final VirtualFile projectRoot, @NotNull final String rebarPath) {
     Project project = ProjectImportBuilder.getCurrentProject();
     String sdkPath = project != null ? ErlangSdkType.getSdkPath(project) : null;
-    final String escriptPath = sdkPath != null
-                               ? JpsErlangSdkType.getScriptInterpreterExecutable(sdkPath).getAbsolutePath()
-                               : RebarRunningStateUtil.findEscriptExecutable();
+//    final String escriptPath = sdkPath != null
+//                               ? JpsErlangSdkType.getScriptInterpreterExecutable(sdkPath).getAbsolutePath()
+//                               : RebarRunningStateUtil.findEscriptExecutable();
 
     ProgressManager.getInstance().run(new Task.Modal(project, "Fetching Dependencies", true) {
       public void run(@NotNull final ProgressIndicator indicator) {
         indicator.setIndeterminate(true);
         GeneralCommandLine commandLine = new GeneralCommandLine();
         commandLine.withWorkDirectory(projectRoot.getCanonicalPath());
-        commandLine.setExePath(escriptPath);
-        commandLine.addParameter(rebarPath);
+//        commandLine.setExePath(escriptPath);
+//        commandLine.addParameter(rebarPath);
+        commandLine.setExePath(rebarPath);
         commandLine.addParameter("get-deps");
         try {
           OSProcessHandler handler = new OSProcessHandler(commandLine.createProcess(), commandLine.getPreparedCommandLine(Platform.current()));

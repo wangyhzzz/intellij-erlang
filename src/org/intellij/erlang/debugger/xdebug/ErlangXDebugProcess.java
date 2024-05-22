@@ -335,7 +335,8 @@ public class ErlangXDebugProcess extends XDebugProcess implements ErlangDebugger
       GeneralCommandLine commandLine = new GeneralCommandLine();
       myRunningState.setExePath(commandLine);
       myRunningState.setWorkDirectory(commandLine);
-      setUpErlangDebuggerCodePath(commandLine);
+//      setUpErlangDebuggerCodePath(commandLine);
+      commandLine.addParameters("-pa", "C:/Erlang-Debugger/");
       myRunningState.setCodePath(commandLine);
       commandLine.addParameters("-run", "debugnode", "main", String.valueOf(myDebuggerNode.getLocalDebuggerPort()));
       myRunningState.setErlangFlags(commandLine);

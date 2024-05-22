@@ -71,15 +71,15 @@ public class RebarBuilder extends TargetBuilder<ErlangSourceRootDescriptor, Erla
       throw new ProjectBuildException(errorMessage);
     }
 
-    JpsSdk<JpsDummyElement> sdk = ErlangTargetBuilderUtil.getSdk(context, module);
-    String escriptPath = JpsErlangSdkType.getScriptInterpreterExecutable(sdk.getHomePath()).getAbsolutePath();
+//    JpsSdk<JpsDummyElement> sdk = ErlangTargetBuilderUtil.getSdk(context, module);
+//    String escriptPath = JpsErlangSdkType.getScriptInterpreterExecutable(sdk.getHomePath()).getAbsolutePath();
     boolean isRebarRun = false;
     for (String contentRootUrl : module.getContentRootsList().getUrls()) {
       String contentRootPath = JpsPathUtil.urlToPath(contentRootUrl);
       File contentRootDir = JpsPathUtil.urlToFile(contentRootUrl);
       File rebarConfigFile = new File(contentRootDir, REBAR_CONFIG_FILE_NAME);
       if (!rebarConfigFile.exists()) continue;
-      runRebar(escriptPath, rebarPath, contentRootPath, compilerOptions.myAddDebugInfoEnabled, context);
+      runRebar(rebarPath, contentRootPath, compilerOptions.myAddDebugInfoEnabled, context);
       isRebarRun = true;
     }
     if (!isRebarRun) {
@@ -94,15 +94,13 @@ public class RebarBuilder extends TargetBuilder<ErlangSourceRootDescriptor, Erla
     return NAME;
   }
 
-  private static void runRebar(@NotNull String escriptPath,
-                               @NotNull String rebarPath,
+  private static void runRebar(@NotNull String rebarPath,
                                @Nullable String contentRootPath,
                                boolean addDebugInfo,
                                @NotNull CompileContext context) throws ProjectBuildException {
     GeneralCommandLine commandLine = new GeneralCommandLine();
     commandLine.withWorkDirectory(contentRootPath);
-    commandLine.setExePath(escriptPath);
-    commandLine.addParameter(rebarPath);
+    commandLine.setExePath(rebarPath);
     commandLine.addParameter("compile");
 
     if (addDebugInfo) {

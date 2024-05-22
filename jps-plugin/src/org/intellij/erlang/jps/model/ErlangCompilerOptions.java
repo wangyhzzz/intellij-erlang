@@ -32,10 +32,10 @@ public class ErlangCompilerOptions {
   }
 
   @Tag("useRebarCompiler")
-  public boolean myUseRebarCompiler = false;
+  public boolean myUseRebarCompiler = true;
 
   @Tag("useDebugInfo")
-  public boolean myAddDebugInfoEnabled = true;
+  public boolean myAddDebugInfoEnabled = true ;
 
   @Tag("additionalErlcArguments")
   @XCollection(elementName = "arg", elementTypes = String.class)

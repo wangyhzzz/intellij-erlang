@@ -53,14 +53,15 @@ public class RebarRunningStateUtil {
     Project project = configuration.getProject();
     RebarSettings rebarSettings = RebarSettings.getInstance(project);
     String sdkPath = ErlangSdkType.getSdkPath(project);
-    String escriptPath = sdkPath != null ?
-                         JpsErlangSdkType.getScriptInterpreterExecutable(sdkPath).getAbsolutePath() :
-                         findEscriptExecutable();
+//    String escriptPath = sdkPath != null ?
+//                         JpsErlangSdkType.getScriptInterpreterExecutable(sdkPath).getAbsolutePath() :
+//                         findEscriptExecutable();
     GeneralCommandLine commandLine = new GeneralCommandLine();
 
     commandLine.withWorkDirectory(getWorkingDirectory(configuration));
-    commandLine.setExePath(escriptPath);
-    commandLine.addParameter(rebarSettings.getRebarPath());
+//    commandLine.setExePath(escriptPath);
+//    commandLine.addParameter(rebarSettings.getRebarPath());
+    commandLine.setExePath(rebarSettings.getRebarPath());
 
     List<String> split = Arrays.asList(configuration.getCommand().split("\\s+"));
     if (!rebarSettings.isRebar3() && configuration.isSkipDependencies() && !split.contains("skip_deps=true")) {
